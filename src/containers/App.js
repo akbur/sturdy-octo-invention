@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from 'react';
+import LearningPlanContainer from './LearningPlanContainer';
 
-class App extends Component {
-  render() {
-    return (
-        <div>
-          <h1>Hello!</h1>
-          <RaisedButton label="Default" />
-        </div>
-    );
-  }
-}
+const App = () => (
+  <LearningPlanContainer />
+);
 
 export default App;

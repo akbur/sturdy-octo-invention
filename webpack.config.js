@@ -14,7 +14,7 @@ module.exports = {
       {
         test: /\.jsx$|\.js$/,
         loader: 'eslint-loader',
-        include: path.join(__dirname, '/public'),
+        include: path.join(__dirname, 'public'),
         exclude: /bundle\.js$/
       }
     ],
@@ -23,7 +23,12 @@ module.exports = {
         test: /\.jsx$|\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.css?$/,
+        loaders: ['style', 'raw', 'css'],
+        include: path.join(__dirname, '/src'),
+      },
     ]
   }
 };
