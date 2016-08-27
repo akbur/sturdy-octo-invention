@@ -1,4 +1,3 @@
-import model from './model';
 import knex from './dbconfig';
 
 export const getAllResources = (req, res) => {
