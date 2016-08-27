@@ -1,10 +1,13 @@
 var path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'client.js'),
+  entry: [
+    path.join(__dirname, 'src', 'client.js')
+  ],
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: 'http://localhost:8080/public'
   },
   module: {
     preLoaders: [
