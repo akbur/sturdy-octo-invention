@@ -22,7 +22,7 @@ const layout = [
 // and on submit, I will capture the overall input
 // on this component add onChange={hangleChange}
 // the handleChange func will be passed as props from the container
-const AddResourceForm = ({ openDialog, handleCloseDialog, handleSubmit }) => (
+const AddResourceForm = ({ openDialog, handleCloseDialog, handleSubmit, priorityValue, handlePrioritySlider, handleProgressEdit }) => (
   <Dialog
     actions={[
       <FlatButton
@@ -54,13 +54,13 @@ const AddResourceForm = ({ openDialog, handleCloseDialog, handleSubmit }) => (
           <MenuItem value={3} primaryText="Other" />
         </SelectField>
         <p style={style}>Progress:</p>
-        <RadioButtonGroup name="progress" defaultSelected="Future">
-          <RadioButton style={style} label="Previous" value="Previous" />
-          <RadioButton style={style} label="Current" value="Current" />
-          <RadioButton style={style} label="Future" value="Future" />
+        <RadioButtonGroup name="progress" defaultSelected="future" onChange={handleProgressEdit}>
+          <RadioButton style={style} label="Previous" value="previous" />
+          <RadioButton style={style} label="Current" value="current" />
+          <RadioButton style={style} label="Future" value="future" />
         </RadioButtonGroup>
         <p style={style}>Priority:</p>
-        <Slider style={style} step={.10} value={.5} />
+        <Slider style={style} step={.10} onChange={handlePrioritySlider}/>
       </div>
     </ReactGridLayout>
   </Dialog>
