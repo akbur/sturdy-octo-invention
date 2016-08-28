@@ -1,30 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import { connect } from 'react-redux';
 const ReactGridLayout = require('react-grid-layout');
 import LearningPlanList from './LearningPlanList';
-import resourceData from '../constants/mock-data';
+import { filterByProgress } from '../actions/resources';
 
   // TODO: Tabs should be filtered by Progress
 
 class LearningPlanContainer extends Component {
+    constructor(props) {
+      super(props);
+
+      this.handleActive = this.handleActive.bind(this);
+    }
+
+    handleActive(tab) {
+      const { dispatch } = this.props;
+      const progress = tab.props['data-progress'];
+      if (progress !== 'all') {
+        dispatch(filterByProgress(progress));
+      }
+    }
 
     render() {
-      var layout = [
-        {i: 'a', x: 0, y: 0, w: 5, h: 12, static: false}
-      ];
+      const layout = [ {i: 'a', x: 0, y: 0, w: 5, h: 12, static: true} ];
+      const { filteredResources, resources } = this.props;
 
       return (
         <ReactGridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
           <div key={'a'}>
-            <Tabs initialSelectedIndex={1}>
-              <Tab label="Previous" onActive={()=>{this.setState({tab: "Previous"})}}>
-                <LearningPlanList list={resourceData}/>
+            <Tabs initialSelectedIndex={0}>
+              <Tab label="All" data-progress="all" onActive={this.handleActive}>
+                <LearningPlanList list={resources}/>
               </Tab>
-              <Tab label="Current" onActive={()=>{this.setState({tab: "Current"})}}>
-                <LearningPlanList list={resourceData}/>
+              <Tab label="Previous" data-progress="previous" onActive={this.handleActive}>
+                <LearningPlanList list={filteredResources}/>
               </Tab>
-              <Tab label="Future" onActive={()=>{this.setState({tab: "Future"})}}>
-                <LearningPlanList list={resourceData}/>
+              <Tab label="Current" data-progress="current" onActive={this.handleActive}>
+                <LearningPlanList list={filteredResources}/>
+              </Tab>
+              <Tab label="Future" data-progress="future" onActive={this.handleActive}>
+                <LearningPlanList list={filteredResources}/>
               </Tab>
             </Tabs>
           </div>
@@ -39,4 +55,12 @@ class LearningPlanContainer extends Component {
     }
 };
 
-export default LearningPlanContainer;
+LearningPlanContainer.propTypes = {
+  dispatch: PropTypes.func,
+}
+
+const mapStateToProps = (state) => {
+  return { resources: state.resources, filteredResources: state.filteredResources };
+}
+
+export default connect(mapStateToProps)(LearningPlanContainer);
