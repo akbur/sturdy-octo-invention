@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { connect } from 'react-redux';
 const ReactGridLayout = require('react-grid-layout');
-import LearningPlanList from './LearningPlanList';
+import LearningPlanList from '../components/LearningPlanList';
 import { filterByProgress } from '../actions/resources';
 
   // TODO: Tabs should be filtered by Progress

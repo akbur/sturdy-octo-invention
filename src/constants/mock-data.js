@@ -5,7 +5,7 @@ const resources = [
     "type":"BOOK",
     "url":"http://www.amazon.com/123book234",
     "details":"Here are some notes about this book. What parts I'd like to read etc.",
-    "progress":"TODO",
+    "progress":"future",
     "priority": 7
   },
   {
@@ -14,7 +14,7 @@ const resources = [
     "type":"COURSE",
     "url":"http://www.opencoursewhare.com/12asdf2e4",
     "details":"I like this course.",
-    "progress":"IN-PROGRESS",
+    "progress":"current",
     "priority": 8
   },
   {
@@ -23,7 +23,7 @@ const resources = [
     "type":"BOOK",
     "url":"http://www.amazon.com/123w224234",
     "details":"Worked through most sections of this book.",
-    "progress":"COMPLETE",
+    "progress":"previous",
     "priority": 0
   },
   {
@@ -32,7 +32,7 @@ const resources = [
     "type":"OTHER",
     "url":"http://www.sometestblog.com/tdd-tutorial",
     "details":"",
-    "progress":"TODO",
+    "progress":"future",
     "priority": 2
   }
 ];
