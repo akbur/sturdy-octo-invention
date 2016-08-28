@@ -10,6 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // Needed for onTouchTap
 injectTapEventPlugin();
 
+// TODO: optional second param for initial state (from server)
 let store = createStore(resourceReducer);
 
 const Root = () => (
