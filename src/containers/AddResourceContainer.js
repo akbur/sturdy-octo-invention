@@ -1,66 +1,55 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import { connect } from 'react-redux';
 import AddResourceForm from '../components/AddResourceForm';
-
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-
-const style = {
-  marginRight: 20,
-};
+import { addResourceOpenDialog, addResourceCloseDialog } from '../actions/resources';
 
 class AddResourceContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      open: false,
-    };
-
-    this.handleOpen = this.handleOpen.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    this.handleOpenDialog = this.handleOpenDialog.bind(this);
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleOpen() {
-    this.setState({open: true});
+  handleOpenDialog() {
+    const { dispatch } = this.props;
+    dispatch(addResourceOpenDialog());
   }
 
-  handleClose() {
-    this.setState({open: false});
+  handleCloseDialog() {
+    const { dispatch } = this.props;
+    dispatch(addResourceCloseDialog());
+  }
+
+  handleSubmit(data) {
+    console.log('Submitting', data);
+    // this.setState({dialogOpen: false});
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        disabled={false}
-        onTouchTap={this.handleClose}
-      />,
-    ];
+    const { addResource } = this.props;
+    const { openDialog } = addResource;
 
     return (
       <div>
-        <FloatingActionButton style={style} onTouchTap={this.handleOpen}>
+        <FloatingActionButton onTouchTap={this.handleOpenDialog}>
           <ContentAdd />
         </FloatingActionButton>
-        <Dialog
-          actions={actions}
-          modal={true}
-          open={this.state.open}
-        >
-        <AddResourceForm />
-        </Dialog>
+        <AddResourceForm
+          openDialog={openDialog}
+          handleCloseDialog={this.handleCloseDialog}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }
 }
 
-export default AddResourceContainer;
+const mapStateToProps = (state) => {
+  return { addResource: state.addResource };
+}
+
+export default connect(mapStateToProps)(AddResourceContainer);
